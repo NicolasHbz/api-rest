@@ -103,7 +103,7 @@ class RecipesController extends Controller
             $em = $this->get('doctrine.orm.entity_manager');
             $em->persist($recipes);
             $em->flush();
-            return ["code" => 200,
+            return ["code" => 201,
                 "message" => "success",
                 "datas" => $recipes];
         } else {
