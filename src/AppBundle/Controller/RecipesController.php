@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\RecipesRecipe;
+use AppBundle\Form\RecipesRecipeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -54,7 +55,7 @@ class RecipesController extends Controller
 
     /**
      * @Rest\View(serializerGroups={"user_recipes"})
-     * @Rest\Post("/users/{name}/recipes.json")
+     * @Rest\GET("/users/{name}/recipes.json")
      */
     public function postRecipesByUserAction(Request $request)
     {
@@ -76,5 +77,35 @@ class RecipesController extends Controller
         return ["code" => 200,
             "message" => "success",
             "datas" => $recipes];
+    }
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"new_recipe"})
+     * @Rest\Post("/users/{name}/recipes.json")
+     */
+    public function postStageAction(Request $request)
+    {
+        $user = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('AppBundle:UsersUser')
+            ->findOneBy(array('username' => $request->get('name')));
+        /* @var $user UsersUser */
+
+        if (empty($user)) {
+            return new JsonResponse(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $recipes = new RecipesRecipe();
+        $form = $this->createForm(RecipesRecipeType::class, $recipes);
+        $form->submit($request->request->all());
+
+        if ($form->isValid()) {
+            $recipes->setUser($user);
+            $em = $this->get('doctrine.orm.entity_manager');
+            $em->persist($recipes);
+            $em->flush();
+            return $recipes;
+        } else {
+            return $form;
+        }
     }
 }
