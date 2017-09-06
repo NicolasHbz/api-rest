@@ -145,7 +145,7 @@ class RecipesRecipe
      */
     public function getStep()
     {
-        return $this->step;
+        return array($this->step);
     }
 
     /**
