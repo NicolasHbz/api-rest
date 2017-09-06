@@ -1,0 +1,11 @@
+AppBundle\Entity\UsersUser:
+    exclusion_policy: none
+    properties:
+        username:
+            groups: ['recipesByName']
+        last_login:
+            groups: ['recipesByName']
+        id:
+            groups: ['recipesByName']
+        recipes:
+            groups: []

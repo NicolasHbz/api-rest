@@ -1,0 +1,13 @@
+AppBundle\Entity\RecipesRecipe:
+    exclusion_policy: none
+    properties:
+        id:
+            groups: ['recipes', 'recipesByName', 'user_recipes']
+        name:
+            groups: ['recipes', 'recipesByName', 'user_recipes']
+        slug:
+            groups: ['recipes', 'recipesByName', 'user_recipes']
+        user:
+            groups: ['recipesByName']
+        step:
+            groups: ['recipesByName']
