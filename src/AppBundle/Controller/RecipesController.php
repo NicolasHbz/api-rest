@@ -25,7 +25,7 @@ class RecipesController extends Controller
 
         /* @var $recipes RecipesRecipe */
         if (empty($recipes)) {
-            return new JsonResponse(['message' => 'recipes not found'], Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['code'=> 404, 'message' => 'recipes not found'], Response::HTTP_NOT_FOUND);
         }
 
         return ["code" => 200,
@@ -45,7 +45,7 @@ class RecipesController extends Controller
 
         /* @var $recipes RecipesRecipe */
         if (empty($recipes)) {
-            return new JsonResponse(['message' => 'recipes not found'], Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['code'=> 404, 'message' => 'recipes not found'], Response::HTTP_NOT_FOUND);
         }
 
         return ["code" => 200,
@@ -71,7 +71,7 @@ class RecipesController extends Controller
 
 
         if (empty($recipes)) {
-            return new JsonResponse(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['code'=> 404, 'message' => 'recipes not found'], Response::HTTP_NOT_FOUND);
         }
 
         return ["code" => 200,
@@ -91,7 +91,7 @@ class RecipesController extends Controller
         /* @var $user UsersUser */
 
         if (empty($user)) {
-            return new JsonResponse(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['code'=> 404, 'message' => 'recipes not found'], Response::HTTP_NOT_FOUND);
         }
 
         $recipes = new RecipesRecipe();
